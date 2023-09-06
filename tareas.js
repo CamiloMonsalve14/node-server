@@ -4,8 +4,8 @@ let readlineSync = require('readline-sync');
 let listaDeTarea = [];
 
 function agregarTarea () {
-    let indicador = readlineSync.question("ingerese el indicador de la tarea")
-    let description = readlineSync.question("ingerese la descripcion de la tarea")
+    let indicador = readlineSync.question("ingerese el indicador de la tarea ")
+    let description = readlineSync.question("ingerese la descripcion de la tarea ")
 
     listaDeTarea.push ( {
         indicador,
@@ -16,7 +16,7 @@ function agregarTarea () {
 }
 
 function eliminarTarea () {
-    let indice = readlineSync.question ("Ingrese el indice de la tarea a eliminar")
+    let indice = readlineSync.question ("Ingrese el indice de la tarea a eliminar ")
 
         if (indice >=0 && indice < listaDeTarea.length) {
             listaDeTarea.splice(indice, 1)
@@ -26,7 +26,7 @@ function eliminarTarea () {
 }
 
 function completarTarea () {
-    let indice = readlineSync.question ("Ingrese el indice de la tarea a completar")
+    let indice = readlineSync.question ("Ingrese el indice de la tarea a completar ")
 
         if (indice >=0 && indice < listaDeTarea.length) {
             listaDeTarea [indice].completed = true
@@ -37,15 +37,15 @@ function completarTarea () {
 
 function imprimirlistaDeTarea() {
     console.log('Lista de tareas:');
-    tareas.forEach((listaDeTarea, indice) => {
+    listaDeTarea.forEach((listaDeTarea, indice) => {
         let estado = listaDeTarea.completed ? "[✓]" : "[]"
-    console.log(`${indice}. ${estado} ${listaDeTarea.indicador}: ${listaDeTarea.descripcion}`);
+    console.log(`${indice}. ${estado} ${listaDeTarea.indicador}: ${listaDeTarea.description}`);
     });
 }
 
 function correrPrograma () {
     while (true) {
-        console.log ("Elige una Opcion")
+        console.log ("Elige una Opcion ")
         console.log (" ")
         console.log ("1. Crea una tarea")
         console.log ("2. Elimina una tarea")
@@ -71,9 +71,8 @@ function correrPrograma () {
             case "5":
                 return;
                 default:
-                    console.log("Opcion invalida!")     
+                    console.log("Opcion invalida!")
         }
-
     }
 }
 

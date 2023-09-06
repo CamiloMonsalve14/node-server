@@ -4,12 +4,13 @@
   "description": "lista de tareas",
   "main": "index.js",
   "scripts": {
-    "test": "tareas.js"
+    "start": "node tareas.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "nodemon": "^3.0.1",
     "readline-sync": "^1.4.10"
   }
 }
