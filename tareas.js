@@ -1,79 +1,67 @@
 
-let readlineSync = require('readline-sync');
+// // Haz un script que permita crear una lista de tareas, cada tarea debe contener un indicador,
+// descripción y estado (completada o no).
 
-let listaDeTarea = [];
+let readlineSync = require("readline-sync");
 
-function agregarTarea () {
-    let indicador = readlineSync.question("ingerese el indicador de la tarea ")
-    let description = readlineSync.question("ingerese la descripcion de la tarea ")
-
-    listaDeTarea.push ( {
-        indicador,
-        description,
-        completed: false
-    })
-    console.log ("Tarea agregada exitosamente");
-}
-
-function eliminarTarea () {
-    let indice = readlineSync.question ("Ingrese el indice de la tarea a eliminar ")
-
-        if (indice >=0 && indice < listaDeTarea.length) {
-            listaDeTarea.splice(indice, 1)
-            console.log("Tare eliminada");
-        } else
-            console.log ("Indice no existe")
-}
-
-function completarTarea () {
-    let indice = readlineSync.question ("Ingrese el indice de la tarea a completar ")
-
-        if (indice >=0 && indice < listaDeTarea.length) {
-            listaDeTarea [indice].completed = true
-            console.log("Tarea completada");
-        } else
-            console.log ("Indice no existe")
-}
-
-function imprimirlistaDeTarea() {
-    console.log('Lista de tareas:');
-    listaDeTarea.forEach((listaDeTarea, indice) => {
-        let estado = listaDeTarea.completed ? "[✓]" : "[]"
-    console.log(`${indice}. ${estado} ${listaDeTarea.indicador}: ${listaDeTarea.description}`);
+// Función para crear una tarea (retorna una promesa)
+function createTask(task) {
+    return new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(task);
+    }, 1000);
     });
 }
 
-function correrPrograma () {
-    while (true) {
-        console.log ("Elige una Opcion ")
-        console.log (" ")
-        console.log ("1. Crea una tarea")
-        console.log ("2. Elimina una tarea")
-        console.log ("3. Completar una tarea")
-        console.log ("4. Imprimir lista de tareas")
-        console.log ("5. Salir")
+function deleteTask(taskId) {
+    return new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(`Tarea con ID ${taskId} eliminada`);
+    }, 800);
+    });
+}
 
-        const option = readlineSync.question ("Ingrese una opcion: ")
+function completeTask(taskId) {
+    return new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve(`Tarea con ID ${taskId} completada`);
+    }, 1200);
+    });
+}
 
-        switch (option) {
-            case "1":
-                agregarTarea();
-                break;
-            case "2":
-                eliminarTarea();
-                break;
-            case "3":
-                completarTarea();
-                    break;
-            case "4":
-                imprimirlistaDeTarea();
-                    break;
-            case "5":
-                return;
-                default:
-                    console.log("Opcion invalida!")
-        }
+async function mainAsync() {
+    try {
+    const newTask = await createTask({ id: 1, description: 'Nueva tarea' });
+    console.log(newTask);
+
+    const deletedTask = await deleteTask(1);
+    console.log(deletedTask);
+
+    const completedTask = await completeTask(1);
+    console.log(completedTask);
+    } catch (error) {
+    console.error(error);
     }
 }
 
-correrPrograma();
+mainAsync();
+
+function mainThen() {
+    createTask({ id: 2, description: 'Nueva tarea' })
+    .then(newTask => {
+        console.log(newTask);
+        return deleteTask(2);
+    })
+    .then(deletedTask => {
+        console.log(deletedTask);
+        return completeTask(2);
+    })
+    .then(completedTask => {
+        console.log(completedTask);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+} 
+
+mainThen();
